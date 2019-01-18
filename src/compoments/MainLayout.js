@@ -1,9 +1,25 @@
 import React, { Component } from 'react'
 import logo from '../logo.svg';
-
+import cart from '../images/cart.png'
 
 export default class MainLayout extends Component {
+    constructor(props){
+        super(props)
+
+        this.state = {
+            itens: [],
+            valor: '',
+            descrição: '',
+        }
+    }
+
+    adcItensArr = (value) => {
+        this.setState({
+            itens: this.state.itens.concat([value])
+        })
+    }
     render() {
+        console.log(this.state.itens)
         return (
             <div className="main">
                 <div className="header">
@@ -12,12 +28,16 @@ export default class MainLayout extends Component {
                 </div>
                 <div className="selecione">
                     <div>
-                        <select>
+                        <select onChange={ e => this.adcItensArr(e.target.value) }>
                             <option value={null}>Selecione seu refrigerante</option>
                             <option value="coca-cola">Coca-cola</option>
                             <option value="Guarana Jesus">Guarana Jesus</option>
                             <option value="pepsi">Pepsi</option>
                         </select>
+                        {this.state.itens.map( (e) =>(
+                            <p>{e}</p>
+                        ))}
+                        <img src={cart} alt={cart}/>
                     </div>
                 </div>
                 <style jsx>{`
@@ -53,6 +73,9 @@ export default class MainLayout extends Component {
                         background: #4c576dcf;
                         color: #61dafb;
                         padding: 10px 100px 10px 3px;
+                    }
+                    img{
+                        width: 3vw;
                     }
                 `}</style>
             </div>
